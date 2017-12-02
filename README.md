@@ -1,2 +1,2 @@
 # alpha60
-Its about nodejs AI project
+Its about nodeJS AI project
