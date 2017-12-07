@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Alpha60 AI Project",
   "author": "Arvind Meena <arvind0937@gmail.com>",
-  "engines": {
-    "node": ">=4"
-  },
   "scripts": {
     "lint": "eslint --ext=js,jsx .",
     "build": "NODE_ENV=production webpack --config config/webpack.config.babel.js",
@@ -14,7 +11,8 @@
   },
   "dependencies": {
     "eslint": "^4.10.0",
-    "express": "^3.3.5",
+    "express": "^4.13.4",
+    "fs": "0.0.1-security",
     "prop-types": "^15.5.10",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"

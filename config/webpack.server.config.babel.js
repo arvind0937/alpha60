@@ -1,9 +1,9 @@
 import path from 'path';
 
 module.exports = {
-    entry: "../src/server/server.js",
+    entry: path.resolve(__dirname, '../src/server/server.js'),
     output: {
-        path: path.resolve(__dirname, 'bundles'),
+        path: path.resolve(__dirname, '../bundles'),
         filename: "server.js"
     },
     module: {
