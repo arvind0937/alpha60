@@ -10,5 +10,10 @@ module.exports = {
         loaders: [
             // { test: /\.css$/, loader: "style!css" }
         ]
-    }
+    },
+    watch: true,
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
+    },
 };

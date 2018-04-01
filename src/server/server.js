@@ -1,18 +1,35 @@
 import path from "path";
 import express from "express";
 
+import routes from './routes';
+
 const app           = express(),
-      DIST_DIR      = path.join(__dirname, "public"),
-      HTML_FILE     = path.join(DIST_DIR, "index.html"),
-      isDevelopment = process.env.NODE_ENV !== "production",
+      DIST_DIR      = path.resolve(__dirname, '..', 'public'),
+      HTML_FILE     = path.resolve(DIST_DIR, 'index.html'),
+      isDevelopment = process.env.NODE_ENV !== 'production',
+      host = isDevelopment ? 'localhost': 'app',
       DEFAULT_PORT  = 3000;
 
-app.set("port", process.env.PORT || DEFAULT_PORT);
+app.set('port', process.env.PORT || DEFAULT_PORT);
 
 app.use(express.static(DIST_DIR));
 
-app.get("*", (req, res) => res.sendFile(HTML_FILE));
+app.use('*', function (req, res, next) {
+      console.log('log server');
+   if (res.accessToken){
+      next();
+   } else {
+      res.redirect('/login');
+   }
+});
 
-app.listen(app.get("port"));
+app.use('/api/', routes);
+
+app.get('*', (req, res) => res.sendFile(HTML_FILE));
+
+const port  = app.get('port');
+app.listen(port,  () => {
+      console.log(`listening to http://${host}:${port}`);
+});
 
 export default app;

@@ -4,7 +4,7 @@ import React from 'react';
 class App extends React.Component {
   render() {
     return (
-      <div>Rendered</div>
+      <div>Rendered ha</div>
     );
   }
 }
