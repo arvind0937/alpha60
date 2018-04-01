@@ -1,7 +1,9 @@
 import path from "path";
 import express from "express";
 
-import routes from './routes';
+import apiRoutes from './apiRoutes';
+
+import db from './db';
 
 const app           = express(),
       DIST_DIR      = path.resolve(__dirname, '..', 'public'),
@@ -23,7 +25,7 @@ app.use('*', function (req, res, next) {
    }
 });
 
-app.use('/api/', routes);
+app.use('/api/', apiRoutes);
 
 app.get('*', (req, res) => res.sendFile(HTML_FILE));
 
