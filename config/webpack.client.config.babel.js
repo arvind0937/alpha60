@@ -1,19 +1,26 @@
 import path from 'path';
 
-module.exports = {
-    entry: path.resolve(__dirname, '../src/client/app.js'),
-    output: {
-        path: path.resolve(__dirname, '../bundles'),
-        filename: "client.js"
-    },
-    module: {
-        loaders: [
-            // { test: /\.css$/, loader: "style!css" }
-        ]
-    },
-    watch: true,
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000
-    },
+export default {
+  entry: path.resolve(__dirname, '../src/client/main.js'),
+  output: {
+    path: path.resolve(__dirname, '../bundles'),
+    filename: "client.js"
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|mjs)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+    ]
+  },
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000
+  },
 };
+

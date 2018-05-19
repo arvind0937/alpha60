@@ -1,6 +1,6 @@
 import path from 'path';
 
-module.exports = {
+export default {  
     name: 'server',
     target: 'node',
     node: {
@@ -13,9 +13,9 @@ module.exports = {
         filename: "server.js"
     },
     module: {
-        loaders: [
-            // { test: /\.css$/, loader: "style!css" }
-        ]
+        // loaders: [
+        //     // { test: /\.css$/, loader: "style!css" }
+        // ]
     },
     watch: true,
     watchOptions: {
