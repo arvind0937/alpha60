@@ -1,6 +1,7 @@
 import path from 'path';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-export default {  
+export default {
     name: 'server',
     target: 'node',
     node: {
@@ -12,8 +13,16 @@ export default {
         path: path.resolve(__dirname, '../bundles'),
         filename: "server.js"
     },
+    plugins: [
+        new CopyWebpackPlugin([
+            {
+                from: './public',
+                to: path.resolve(__dirname, '../bundles/public'),
+            },
+        ])
+    ],
     module: {
-        // loaders: [
+        // loaders: [   
         //     // { test: /\.css$/, loader: "style!css" }
         // ]
     },
