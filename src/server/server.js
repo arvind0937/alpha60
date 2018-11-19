@@ -1,9 +1,11 @@
 import path from 'path'
+import https from 'https'
 import express from 'express'
 import mongoose from 'mongoose'
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import errorhandler from 'errorhandler'
+import fs from 'fs'
 
 import apiRoutes from './apiRoutes'
 
@@ -21,7 +23,14 @@ const app = express(),
   HTML_FILE = path.resolve(DIST_DIR),
   isDevelopment = process.env.NODE_ENV !== 'production',
   host = isDevelopment ? 'localhost' : 'app',
-  DEFAULT_PORT = 3000
+  DEFAULT_PROTOCOL ='https',
+  DEFAULT_PORT = 3000,
+  key = fs.readFileSync(__dirname   + '/../certs/selfsigned.key'),
+  cert = fs.readFileSync(__dirname  + '/../certs/selfsigned.crt'),
+  options = {
+    key: key,
+    cert: cert
+  };
 
 app.set('port', process.env.PORT || DEFAULT_PORT)
 
@@ -50,8 +59,9 @@ app.use('*', function (req, res, next) {
 })
 
 const port = app.get('port')
-app.listen(port, () => {
-  console.log(`listening to http://${host}:${port}`)
+https.createServer(options, app)
+.listen(port, () => {
+  console.log(`listening to https://${host}:${port}`)
 })
 
 export default app

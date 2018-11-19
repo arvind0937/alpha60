@@ -1,5 +1,7 @@
 import React from 'react'
 
+import ajax from 'libs/ajax';
+
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
 import styles from './login.scss'
@@ -15,7 +17,13 @@ class Login extends React.Component {
     _onSubmit = () => {
         const inputEmail = this.userEmailRef.current.value;
         const inputPassword = this.userPasswordRef.current.value;
-        debugger;
+        const d = ajax;
+        ajax.post('/api/users/', {
+            user: {
+                email: inputEmail,
+                password: inputPassword,
+            },
+        });
     }
 
     render() {

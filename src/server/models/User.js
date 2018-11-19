@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 
+const salt = crypto.randomBytes(128).toString('base64');
+
+export const getHashedPassword = password => crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512').toString('hex');
+
 const UsersSchema  = mongoose.Schema({
     name: String,
     email: String,
@@ -9,13 +13,12 @@ const UsersSchema  = mongoose.Schema({
 });
 
 UsersSchema.methods.setPassword = function(password) {
-    this.salt = crypto.randomBytes(16).toString('hex');
-    this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+    this.hash = getHashedPassword(password);
+    this.password = getHashedPassword(password);
   };
   
   UsersSchema.methods.validatePassword = function(password) {
-    const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-    return this.hash === hash;
+    return this.hash === getHashedPassword(password);
   };
   
   UsersSchema.methods.generateJWT = function() {

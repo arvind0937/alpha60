@@ -10,7 +10,8 @@ export default {
   },
   resolve: {
     alias: {
-      img: path.resolve(__dirname, '../src/clients/img/'),
+      img: path.resolve(__dirname, '../src/client/img/'),
+      libs: path.resolve(__dirname, '../src/client/libs/'),
     },
   },
   module: {
